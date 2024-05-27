@@ -1,1 +1,17 @@
-{"youtube": {"url": "https://www.youtube.com/"}, "albania": {"file": "albania4.jpg"}}
+{
+  "youtube": {
+    "url": "https://www.youtube.com/"
+  },
+  "albania": {
+    "file": "albania4.jpg"
+  },
+  "google": {
+    "url": "https://www.google.com/"
+  },
+  "youtube1": {
+    "url": "https://www.youtube.com/"
+  },
+  "hello": {
+    "file": "helloDopamineEra.png"
+  }
+}
