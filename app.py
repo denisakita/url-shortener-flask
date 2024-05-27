@@ -2,7 +2,7 @@ import json
 import os.path
 
 from flask import (Flask, render_template, request,
-                   flash, redirect, url_for, abort)
+                   flash, redirect, url_for, abort, session, jsonify)
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -12,7 +12,7 @@ app.secret_key = '2637216381'
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', codes=session.keys())
 
 
 @app.route('/your-url', methods=['GET', 'POST'])
@@ -38,6 +38,7 @@ def your_url():
 
         with open('urls.json', 'w') as urls_file:
             json.dump(urls, urls_file)
+            session[request.form['code']] = True
         return render_template('your_url.html', code=request.form['code'])
     else:
         return redirect(url_for('home'))
@@ -60,6 +61,11 @@ def redirect_to_url(code):
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('page_not_found.html'), 404
+
+
+@app.route('/api')
+def session_api():
+    return jsonify(list(session.keys()))
 
 
 if __name__ == '__main__':
